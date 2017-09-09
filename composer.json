@@ -1,0 +1,35 @@
+{
+    "name": "gameye/gameye-sdk-php",
+    "description": "Gameye SDK for PHP.",
+    "homepage": "https://github.com/gameye/gameye-sdk-php",
+    "type": "library",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Gameye B.V.",
+            "email": "support@gameye.com"
+        }
+    ],
+    "keywords": [
+      "gameye", "counterstrike", "tf2", "l4d2", "tf2", "kf2", "csgo", "gotv", "esport", "gaming", "tournaments", "api", "docker"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Gameye\\SDK\\": "src/"
+        }
+    },
+    "require" : {
+        "php": ">=5.6.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "~6.0",
+        "chili-labs/json-patch": "^1.0",
+        "zyberspace/steam-web-api-client": "^0.5.0"
+    },
+    "require-dev": {
+        "phpunit/php-code-coverage": "^4.0",
+        "phpunit/phpunit": "^5.7",
+        "friendsofphp/php-cs-fixer": "^2.5"
+    }
+}
