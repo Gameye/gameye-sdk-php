@@ -90,7 +90,7 @@ $gameye->GetTemplates($gameid);
 Get a list of all your active matches.
 
 ```php
-$gameye->GetActiveMatches();
+$gameye->GetActiveMatches($gameid);
 ```
 
 Get the server details of a match.
