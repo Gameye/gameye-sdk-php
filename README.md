@@ -102,7 +102,7 @@ $gameye->GetMatch($matchid);
 Get the result (scores and statistics) of a match.
 
 ```php
-$gameye->GetMatchResults($matchid);
+$gameye->GetMatchResult($matchid);
 ```
 
 Stop a match.
