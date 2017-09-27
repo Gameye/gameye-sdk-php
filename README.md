@@ -7,13 +7,13 @@
 [![Total Downloads](https://poser.pugx.org/Gameye/gameye-sdk-php/downloads)](https://packagist.org/packages/gameye/gameye-sdk-php)
 [![License](https://poser.pugx.org/gameye/gameye-sdk-php/license)](https://packagist.org/packages/gameye/gameye-sdk-php)
 
-Create eSport and competitive matches for Counter-Strike: Global Offensive, Team Fortress 2, Left 4 Dead 2 and Killing Floor 2 for your platform without fixed monthly costs or any need for server infrastructure. Just use the Gameye API to run online matches and retrieve the scores/statistics directly on your website.
+Create eSport and competitive matches for Counter-Strike: Global Offensive, Team Fortress 2, Left 4 Dead 2 and Killing Floor 2 for your platform without fixed monthly costs or any need for your own server infrastructure. Simply implement the Gameye API to kick off online matches when you need the, - you will even be able to implement the scores/statistics directly on your website. How cool is that!
 
 ## Requirements ##
 
-To use the Gameye SDK, the following things are required:
+To use the Gameye SDK, the following prerequisites need to be fulfilled:
 
-+ Get a free Gameye API key, please send us [an email](mailto:support@gameye.com)
++ Obtain a free Gameye API key, please send us [an email](mailto:support@gameye.com)
 + Composer
 + PHP 5.6.4+ or newer
 + PHP cURL extension
@@ -34,11 +34,11 @@ You may also git checkout or [download all the files](https://github.com/Gameye/
 
 ## Getting started ##
 
-1. Use the Gameye SDK to create match with the game options you want. It's important to specifiy an unique ID to be able to retreive the details when the match has been created.
+1. Use the Gameye SDK to create a match with your desired game-specific options. It's important to specify an unique ID in order to be able to retrieve the details when the match has been created.
 
-2. After the first player has joined the match, the status will change from `waiting` to `playing`. At this point it's possible to get statistics en scores from the match.
+2. After the first player has joined the match, the status will change from `waiting` to `playing`. At this point it will be possible to retrieve statistics and scores from the match.
 
-3. The match has ended and our platform will send a request to your webhook to let you know the match is done.
+3. After the match has ended our platform will post a request to your webhook to let you know the match is done.
 
 
 Initialize the Gameye API client and set your API key.
@@ -68,7 +68,7 @@ $gameye->StartMatch([
 ]);
 ```
 
-_After creating the match, the match details are available via the `GetMatchState` function._
+_After creating the match, the match details will be available via the `GetMatchState` function._
 
 Get a list of all available games we support.
 
@@ -111,9 +111,9 @@ Stop a match.
 $gameye->StopMatch($matchid);
 ```
 
-## Create a Steam Server Login Token ## 
+## Create a Steam Server Login Token ##
 
-We made a helper function to make it easier fro you to create GSLT (Game Server Login Token) via the Steam WEB API. It's recommended that you create a new token for every new match and delete the token after the match has been ended. This because a Steam account is limited to max 1000 tokens. Passing a GSLT when starting a match is currently only needed for CS:GO. For more information see the [Steam website](https://steamcommunity.com/dev/managegameservers).
+We made a helper function to make it easier for you to create a GSLT (Game Server Login Token) via the Steam WEB API. It is strongly recommended to create a fresh token for every match and delete the token after the match has ended. This is advisable because every Steam account is limited to a maximum of 1000 tokens. Passing a GSLT when starting a match is currently only required for CS:GO. For more information see the [Steam website](https://steamcommunity.com/dev/managegameservers).
 
 ```php
 $steam = new \Gameye\SDK\createSteamClient([
@@ -124,7 +124,7 @@ $steam->GameServersService->CreateAccountV1 ($appid, $memo);
 ```
 You can create a Steam Web API key on the [Steam website](https://steamcommunity.com/dev/apikey).
 
-List of APP id's you can use:
+List of APP ids that can be used:
 
 CS:G0 = 730  
 CSS = 240  
@@ -134,12 +134,12 @@ KF2 = 232090
 
 ## Examples ##
 
-We have made an example implementation based on the Laravel framework which uses all functions of this SDK, it shows you have to create a basic backend how to create and manage matches via our API. 
+We have created an example implementation of this SDK based on the Laravel framework which implements all functions provided here, this should show you how to create a basic backend and how to create and manage matches via our API.
 
 + [Example implementation in Laravel](https://github.com/Gameye/gameye-sdk-example-laravel).
 
 ## Contributing ##
-We encourage everyone to help us better our public packages. If you want to contribute please submit a [pull request](https://github.com/Gameye/gameye-sdk-php/pulls).
+We encourage everyone to help us improve our public packages. If you want to contribute please submit a [pull request](https://github.com/Gameye/gameye-sdk-php/pulls).
 
 ## License ##
 [BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php). 2017 Gameye B.V.
