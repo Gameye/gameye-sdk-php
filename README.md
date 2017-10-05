@@ -116,7 +116,7 @@ $gameye->StopMatch($matchid);
 We made a helper function to make it easier for you to create a GSLT (Game Server Login Token) via the Steam WEB API. It is strongly recommended to create a fresh token for every match and delete the token after the match has ended. This is advisable because every Steam account is limited to a maximum of 1000 tokens. Passing a GSLT when starting a match is currently only required for CS:GO. For more information see the [Steam website](https://steamcommunity.com/dev/managegameservers).
 
 ```php
-$steam = new \Gameye\SDK\createSteamClient([
+$steam = new \Gameye\SDK\SteamClient([
             'WebToken' => 'webtoken',
         ]);
 
