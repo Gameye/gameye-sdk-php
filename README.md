@@ -117,7 +117,7 @@ We made a helper function to make it easier for you to create a GSLT (Game Serve
 
 ```php
 $steam = new \Gameye\SDK\createSteamClient([
-            'webToken' => 'webtoken',
+            'WebToken' => 'webtoken',
         ]);
 
 $steam->GameServersService->CreateAccountV1 ($appid, $memo);
