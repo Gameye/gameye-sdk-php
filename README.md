@@ -57,18 +57,20 @@ $gameye->StartMatch([
     'matchId'     => 'yourmatchid',
     'locationIds' => [1],
     'gameId'      => 1,
-    'templateId'  => 20,
+    'templateId'  => 'esl1on1',
     'config'      => [
-        'sv_setsteamaccount' => 'yoursteamgameservertoken',
-        'maxplayers'         => 12,
-        'tickrate'           => 128,
-        'mapgroup'           => 'mg_active',
-        'map'                => 'de_dust2',
-    ]
+        'steamToken' => 'yoursteamgameservertoken',
+        'maxPlayers' => 12,
+        'maxRounds'  => 15,
+        'tickRate'   => 128,
+        'map'        => 'de_dust2',
+    ],
+    'endCallbackUrl' => 'https://platform.com/match?id=yourmatchid'
 ]);
 ```
 
-_After creating the match, the match details will be available via the `GetMatchState` function._
+_After creating the match, the server details will be available via the `GetMatch` function._
+_When the match has been ended we will make a GET request to your callback url so you can fetch the match results._
 
 Get a list of all available games we support.
 
@@ -120,7 +122,7 @@ $steam = new \Gameye\SDK\SteamClient([
             'WebToken' => 'webtoken',
         ]);
 
-$steam->GameServersService->CreateAccountV1 ($appid, $memo);
+$steam->GameServersService->CreateAccountV1($appid, $memo);
 ```
 You can create a Steam Web API key on the [Steam website](https://steamcommunity.com/dev/apikey).
 
