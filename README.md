@@ -72,6 +72,18 @@ $gameye->StartMatch([
 _After creating the match, the server details will be available via the `GetMatch` function._
 _When the match has been ended we will make a GET request to your callback url so you can fetch the match results._
 
+Create a match with a custom (Steam Workshop) map.  
+Remove the map parameter from the config array and add the following two parameters.  
+  
+
+```php
+'config'      => [
+    'workshopMap' => 'workshopid',
+    'authkey'     => 'yoursteamwebapikey'
+],
+```
+You can find the id of a custom map at the end of a [Steam Workshop URL](https://steamcommunity.com/workshop/browse/?appid=730).
+
 Get a list of all available games we support.
 
 ```php
