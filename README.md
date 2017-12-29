@@ -1,13 +1,12 @@
-![Gameye](https://dev.gameye.com/img/logo_blue.png)
+![Gameye](https://gameye.com/img/logo_blue.png)
 
 # Gameye SDK for PHP #
 
-[![Build Status](https://img.shields.io/travis/Gameye/gameye-sdk-php.svg?style=flat)](https://travis-ci.org/Gameye/gameye-sdk-php)
 [![Latest Stable Version](https://poser.pugx.org/Gameye/gameye-sdk-php/v/stable)](https://packagist.org/packages/gameye/gameye-sdk-php)
 [![Total Downloads](https://poser.pugx.org/Gameye/gameye-sdk-php/downloads)](https://packagist.org/packages/gameye/gameye-sdk-php)
 [![License](https://poser.pugx.org/gameye/gameye-sdk-php/license)](https://packagist.org/packages/gameye/gameye-sdk-php)
 
-Create eSport and competitive matches for Counter-Strike: Global Offensive, Team Fortress 2, Left 4 Dead 2 and Killing Floor 2 for your platform without fixed monthly costs or any need for your own server infrastructure. Simply implement the Gameye API to kick off online matches when you need the, - you will even be able to implement the scores/statistics directly on your website. How cool is that!
+Create eSport and competitive matches for Counter-Strike: Global Offensive, Team Fortress 2, Left 4 Dead 2, Killing Floor 2, Insurgency and Day of Infamy for your platform without fixed monthly costs or any need for your own server infrastructure. Simply implement the Gameye API to kick off online matches when you need the, - you will even be able to implement the scores/statistics directly on your website. How cool is that!
 
 ## Requirements ##
 
@@ -138,13 +137,8 @@ $steam->GameServersService->CreateAccountV1($appid, $memo);
 ```
 You can create a Steam Web API key on the [Steam website](https://steamcommunity.com/dev/apikey).
 
-List of APP ids that can be used:
+The APP id that you should include for CS:GO is 730
 
-CS:G0 = 730  
-CSS = 240  
-TF2 = 440  
-L4D2 = 550  
-KF2 = 232090
 
 ## Examples ##
 
