@@ -56,6 +56,9 @@ final class GameyeClientTest extends TestCase
     public function testGetLocations()
     {
         $client = $this->createTestClientMock();
+        $this->assertEquals([
+            '100' => (object) ['locationKey' => '100', 'name' => 'Local'],
+        ], $client->GetLocations('test'));
     }
 
     public function testGetActiveMatches()

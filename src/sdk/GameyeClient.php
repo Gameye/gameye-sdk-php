@@ -110,13 +110,17 @@ class GameyeClient
     ) {
         $gameKey = (string)$gameKey;
 
-        $state = $this->FetchState('location', []);
+        $state = $this->FetchState('game', []);
         $result = [];
-        foreach ($state->game->$gameKey->location as $locationKey) {
+        foreach ($state->game->$gameKey->location as $locationKey => $hasLocation) {
+            if (!$hasLocation) {
+                continue;
+            }
+
             $locationItem = $state->location->$locationKey;
             $result[$locationKey] = (object) [
                 'locationKey' => $locationKey,
-                'name'       => $locationItem->name,
+                'name'       => $locationItem->locationName,
             ];
         }
 
