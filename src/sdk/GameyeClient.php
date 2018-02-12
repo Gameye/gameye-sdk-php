@@ -30,10 +30,10 @@ class GameyeClient
         // $config: object
         
         $payload = (object) [
-            'matchKey'     => $matchKey,
-            'locationKeys' => $locationKeys,
-            'gameKey'      => $gameKey,
-            'templateKey'  => $templateKey,
+            'matchKey'    => $matchKey,
+            'locationKeys'=> $locationKeys,
+            'gameKey'     => $gameKey,
+            'templateKey' => $templateKey,
             'config'      => $config,
         ];
         $this->PerformAction('start-match', $payload);
@@ -61,7 +61,7 @@ class GameyeClient
         foreach ($state->game as $gameKey => $gameItem) {
             $result[$gameKey] = (object) [
                 'gameKey' => $gameKey,
-                'name'   => $gameItem->name,
+                'name'   => $gameItem->gameKey,
             ];
         }
 

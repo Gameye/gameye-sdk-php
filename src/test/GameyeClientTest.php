@@ -43,6 +43,14 @@ final class GameyeClientTest extends TestCase
     public function testGetGames()
     {
         $client = $this->createTestClientMock();
+        $this->assertEquals([
+            'csgo' => (object) ['gameKey' => 'csgo', 'name' => 'csgo'],
+            'tf2'  => (object) ['gameKey' => 'tf2',  'name' => 'tf2' ],
+            'css'  => (object) ['gameKey' => 'css',  'name' => 'css' ],
+            'l4d2' => (object) ['gameKey' => 'l4d2', 'name' => 'l4d2'],
+            'kf2'  => (object) ['gameKey' => 'kf2',  'name' => 'kf2' ],
+            'test' => (object) ['gameKey' => 'test', 'name' => 'test'],
+        ], $client->GetGames());
     }
 
     public function testGetLocations()
