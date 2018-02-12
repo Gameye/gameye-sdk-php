@@ -261,8 +261,10 @@ class GameyeClient
     private function CheckResponse(
         $response
     ) {
-        // TODO: if response error (check status) then throw error with
-        // $response->getBody() text
+        if(!($this->statusCode >= 200 && $this->statusCode < 300 )) {
+            // if statucode is not in the 2xx range
+            throw new Exception($response->getBody());
+        }
     }
 
     private function MakeFetchUrl(
