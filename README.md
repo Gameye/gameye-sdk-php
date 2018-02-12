@@ -52,20 +52,20 @@ $gameye = new \Gameye\SDK\createGameyeClient([
 Create a match.
 
 ```php
-$gameye->StartMatch([
-    'matchId'     => 'yourmatchid',
-    'locationIds' => [1],
-    'gameId'      => 1,
-    'templateId'  => 'esl1on1',
-    'config'      => [
+$gameye->DoStartMatch(
+    'yourmatchid',
+    [1],
+    'csgo',
+    'esl1on1',
+    [
         'steamToken' => 'yoursteamgameservertoken',
         'maxPlayers' => 12,
         'maxRounds'  => 15,
         'tickRate'   => 128,
         'map'        => 'de_dust2',
     ],
-    'endCallbackUrl' => 'https://platform.com/match?id=yourmatchid'
-]);
+    'https://platform.com/match?id=yourmatchid'
+);
 ```
 
 _After creating the match, the server details will be available via the `GetMatch` function._
@@ -76,7 +76,7 @@ Remove the map parameter from the config array and add the following two paramet
   
 
 ```php
-'config'      => [
+'config' => [
     'workshopMap' => 'workshopid',
     'authkey'     => 'yoursteamwebapikey'
 ],
@@ -92,36 +92,36 @@ $gameye->GetGames();
 Get a list of all locations where a game is available.
 
 ```php
-$gameye->GetLocations($gameid);
+$gameye->GetLocations($gameKey);
 ```
 
 Get a list of all available templates (configuration files) for a game.
 
 ```php
-$gameye->GetTemplates($gameid);
+$gameye->GetTemplates($gameKey);
 ```
 Get a list of all your active matches.
 
 ```php
-$gameye->GetActiveMatches($gameid);
+$gameye->GetActiveMatches($gameKey);
 ```
 
 Get the server details of a match.
 
 ```php
-$gameye->GetMatch($matchid);
+$gameye->GetMatch($matchKey);
 ```
 
 Get the result (scores and statistics) of a match.
 
 ```php
-$gameye->GetMatchResult($matchid);
+$gameye->GetMatchResult($matchKey);
 ```
 
 Stop a match.
 
 ```php
-$gameye->StopMatch($matchid);
+$gameye->DoStopMatch($matchKey);
 ```
 
 ## Create a Steam Server Login Token ##
