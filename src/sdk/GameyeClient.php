@@ -139,12 +139,13 @@ class GameyeClient
             if ($matchItem->gameKey != $gameKey) {
                 continue;
             }
-
             $result[$matchKey] = (object) [
                 'matchKey'    => $matchKey,
                 'gameKey'     => $matchItem->gameKey,
                 'locationKey' => $matchItem->locationKey,
-                'created'     => \DateTime::createFromFormat('U', $matchItem->created / 1000),
+                'host' => $matchItem->host,
+                'port' => (object) $matchItem->port,
+                'created'     => \DateTime::createFromFormat('U', intval($matchItem->created / 1000)),
             ];
         }
 
@@ -183,7 +184,7 @@ class GameyeClient
     ) {
         $matchKey = (string)$matchKey;
 
-        $state = $this->FetchState('match');
+        $state = $this->FetchState('match', []);
 
         $matchItem = $state->match->$matchKey;
 
@@ -191,9 +192,9 @@ class GameyeClient
             'matchKey'    => $matchKey,
             'gameKey'     => $matchItem->gameKey,
             'locationKey' => $matchItem->locationKey,
-            'created'     => \DateTime::createFromFormat('U', $matchItem->created / 1000),
-            'host'        => $matchItem->host,
-            'portMapping' => $matchItem->portMapping,
+            'host' => $matchItem->host,
+            'port' => (object) $matchItem->port,
+            'created'     => \DateTime::createFromFormat('U', intval($matchItem->created / 1000)),
         ];
 
         return $result;

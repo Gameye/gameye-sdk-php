@@ -57,13 +57,26 @@ final class GameyeClientTest extends TestCase
     {
         $client = $this->createTestClientMock();
         $this->assertEquals([
-            '100' => (object) ['locationKey' => '100', 'name' => 'Local'],
+            100 => (object) ['locationKey' => 100, 'name' => 'Local'],
         ], $client->GetLocations('test'));
     }
 
     public function testGetActiveMatches()
     {
         $client = $this->createTestClientMock();
+        $this->assertEquals([
+            'test-match-123' => (object) [
+                "gameKey" => 'test-game',
+                "host"=> "127.0.0.1",
+                "locationKey"=> 100,
+                "matchKey"=> "test-match-123",
+                "port"=> (object) [
+                    "game"=> 57015,
+                    "tv"=> 57025
+                ],
+                "created"=> new \DateTime('2018-02-09T15:48:58Z'),
+            ],
+        ], $client->GetActiveMatches('test-game'));
     }
 
     public function testGetTemplates()
@@ -74,6 +87,17 @@ final class GameyeClientTest extends TestCase
     public function testGetMatch()
     {
         $client = $this->createTestClientMock();
+        $this->assertEquals((object) [
+            "gameKey" => 'testing',
+            "host"=> "127.0.0.1",
+            "locationKey"=> 100,
+            "matchKey"=> "test-match-456",
+            "port"=> (object) [
+                "game"=> 67015,
+                "tv"=> 67025
+            ],
+            "created"=> new \DateTime('2018-02-09T15:48:59Z'),
+        ], $client->GetMatch('test-match-456'));
     }
 
     public function testGetMatchStatistic()
