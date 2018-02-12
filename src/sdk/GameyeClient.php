@@ -10,6 +10,9 @@ class GameyeClient
     private $config;
     private $httpClient;
 
+    /**
+     * @param object $config
+     */
     public function __construct(
         $config
     ) {
@@ -38,6 +41,17 @@ class GameyeClient
         $templateKey,
         $config
     ) {
+        $matchKey = (string)$matchKey;
+        $locationKeys = array_map(
+            function ($locationKey) {
+                return (int) $locationKey;
+            },
+            (array) $locationKeys
+        );
+        $gameKey = (string)$gameKey;
+        $templateKey = (string)$templateKey;
+        $config = (object)$config;
+
         $payload = (object) [
             'matchKey'    => (string) $matchKey,
             'locationKeys'=> array_map(
@@ -55,12 +69,12 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $matchKey
      */
     public function StopMatch(
         $matchKey
     ) {
-        // TODO: check argument types
-        // $matchKey: string
+        $matchKey = (string) $matchKey;
 
         $payload = [
             'matchKey' => $matchKey,
@@ -89,12 +103,12 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $gameKey
      */
     public function GetLocations(
         $gameKey
     ) {
-        // TODO: check argument types
-        // $gameKey: string
+        $gameKey = (string)$gameKey;
 
         $state = $this->FetchState('location', []);
         $result = [];
@@ -111,12 +125,12 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $gameKey
      */
     public function GetActiveMatches(
         $gameKey
     ) {
-        // TODO: check argument types
-        // $gameKey: string
+        $gameKey = (string)$gameKey;
 
         $state = $this->FetchState('match', []);
 
@@ -140,12 +154,12 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $gameKey
      */
     public function GetTemplates(
         $gameKey
     ) {
-        // TODO: check argument types
-        // $gameKey: string
+        $gameKey = (string)$gameKey;
 
         $state = $this->FetchState('template', [$gameKey]);
 
@@ -163,12 +177,12 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $matchKey
      */
     public function GetMatch(
         $matchKey
     ) {
-        // TODO: check argument types
-        // $matchKey: string
+        $matchKey = (string)$matchKey;
 
         $state = $this->FetchState('match');
 
@@ -188,14 +202,15 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @param string $matchKey
+     * @param string $statisticKey
      */
     public function GetMatchStatistic(
         $matchKey,
         $statisticKey
     ) {
-        // TODO: check argument types
-        // $matchKey: string
-        // $statisticKey: string
+        $matchKey = (string)$matchKey;
+        $statisticKey = (string)$statisticKey;
 
         $state = $this->FetchState('statistic', [$matchKey]);
 
