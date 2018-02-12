@@ -82,6 +82,36 @@ final class GameyeClientTest extends TestCase
     public function testGetTemplates()
     {
         $client = $this->createTestClientMock();
+        $this->assertEquals([
+            "t1" => (object) [
+                'templateKey' => 't1',
+                'name' => 't1',
+                'arg' => [
+                    (object)[
+                        "name"=> "tickRate",
+                        "type"=> "number",
+                        "defaultValue"=> 64,
+                        "option"=> [64, 128]
+                    ],
+                ],
+            ],
+            "t2"=> (object) [
+                'templateKey' => 't2',
+                'name' => 't2',
+                'arg' => [
+                    (object)[
+                        "name"=> "steamToken",
+                        "type"=> "string",
+                        "defaultValue"=> "",
+                    ],
+                    (object)[
+                        "name"=> "hostname",
+                        "type"=> "string",
+                        "defaultValue" => "gameye.com Match Server",
+                    ],
+                ],
+            ],
+        ], $client->GetTemplates('game-123'));
     }
 
     public function testGetMatch()

@@ -165,10 +165,11 @@ class GameyeClient
 
         $result = [];
 
-        foreach ($state->game->$gameKey->template as $templateKey => $templateItem) {
+        foreach ($state->template as $templateKey => $templateItem) {
             $result[$templateKey] = (object) [
                 'templateKey' => $templateKey,
-                'name'        => $templateItem->name,
+                'name'        => $templateItem->templateKey,
+                'arg' => $templateItem->arg,
             ];
         }
 
@@ -216,7 +217,7 @@ class GameyeClient
 
         $statItem = $state->match->$matchKey;
 
-        $result = $statItem;
+        $result = (object)$statItem;
 
         return $result;
     }
