@@ -15,8 +15,7 @@ class GameyeClient
      * @param \GuzzleHttp\Client $httpClient
      */
     public function __construct(
-        $config,
-        $httpClient = null
+        $config
     ) {
         $defaultConfig = [
             'ApiEndpoint' => getenv('GAMEYE_API_ENDPOINT'),
@@ -27,11 +26,7 @@ class GameyeClient
         $this->CheckConfigSet('ApiEndpoint');
         $this->CheckConfigSet('AccessToken');
 
-        if (isset($httpClient)) {
-            $this->httpClient = $httpClient;
-        } else {
-            $this->httpClient = new \GuzzleHttp\Client();
-        }
+        $this->httpClient = new \GuzzleHttp\Client();
     }
 
     /**
