@@ -4,9 +4,9 @@ namespace Gameye\Test;
 
 use Gameye\SDK\GameyeClient;
 
-/*
-This class mocks the Gameye client so that it may be unit tested
-*/
+/**
+ * Gameye API client mock, useful for testing purpose!
+ */
 class GameyeClientMock extends GameyeClient
 {
     protected function FetchState($state, $args)

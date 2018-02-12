@@ -2,13 +2,17 @@
 
 namespace Gameye\SDK;
 
+/**
+ * Gameye API client
+ */
 class GameyeClient
 {
     private $config;
     private $httpClient;
 
-    public function __construct($config)
-    {
+    public function __construct(
+        $config
+    ) {
         $defaultConfig = [
             'ApiEndpoint' => getenv('GAMEYE_API_ENDPOINT'),
             'AccessToken' => getenv('GAMEYE_API_TOKEN'),
@@ -19,29 +23,42 @@ class GameyeClient
         $this->CheckConfigSet('AccessToken');
     }
 
-    //TODO: description of function
-    public function StartMatch($matchKey, $locationKeys, $gameKey, $templateKey, $config)
-    {
-        // TODO: check argument types
-        // $matchKey: string
-        // $locationKeys: number[]
-        // $gameKey: string
-        // $templateKey: string
-        // $config: object
-        
+    /**
+     * TODO: description of function
+     * @param string $matchKey
+     * @param int[] $locationKeys
+     * @param string $gameKey
+     * @param string $templateKey
+     * @param object $config
+     */
+    public function StartMatch(
+        $matchKey,
+        $locationKeys,
+        $gameKey,
+        $templateKey,
+        $config
+    ) {
         $payload = (object) [
-            'matchKey'    => $matchKey,
-            'locationKeys'=> $locationKeys,
-            'gameKey'     => $gameKey,
-            'templateKey' => $templateKey,
-            'config'      => $config,
+            'matchKey'    => (string) $matchKey,
+            'locationKeys'=> array_map(
+                function ($value) {
+                    return (int) $value;
+                },
+                (array) $locationKeys
+            ),
+            'gameKey'     => (string) $gameKey,
+            'templateKey' => (string) $templateKey,
+            'config'      => (object) $config,
         ];
         $this->PerformAction('start-match', $payload);
     }
 
-    //TODO: description of function
-    public function StopMatch($matchKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function StopMatch(
+        $matchKey
+    ) {
         // TODO: check argument types
         // $matchKey: string
 
@@ -51,7 +68,9 @@ class GameyeClient
         $this->PerformAction('stop-match', $payload);
     }
 
-    //TODO: description of function
+    /**
+     * TODO: description of function
+     */
     public function GetGames()
     {
         $state = $this->FetchState('game', []);
@@ -68,9 +87,12 @@ class GameyeClient
         return $result;
     }
 
-    //TODO: description of function
-    public function GetLocations($gameKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function GetLocations(
+        $gameKey
+    ) {
         // TODO: check argument types
         // $gameKey: string
 
@@ -87,9 +109,12 @@ class GameyeClient
         return $result;
     }
 
-    //TODO: description of function
-    public function GetActiveMatches($gameKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function GetActiveMatches(
+        $gameKey
+    ) {
         // TODO: check argument types
         // $gameKey: string
 
@@ -113,9 +138,12 @@ class GameyeClient
         return $result;
     }
 
-    //TODO: description of function
-    public function GetTemplates($gameKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function GetTemplates(
+        $gameKey
+    ) {
         // TODO: check argument types
         // $gameKey: string
 
@@ -133,9 +161,12 @@ class GameyeClient
         return $result;
     }
 
-    //TODO: description of function
-    public function GetMatch($matchKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function GetMatch(
+        $matchKey
+    ) {
         // TODO: check argument types
         // $matchKey: string
 
@@ -155,9 +186,13 @@ class GameyeClient
         return $result;
     }
 
-    //TODO: description of function
-    public function GetMatchStatistic($matchKey, $statisticKey)
-    {
+    /**
+     * TODO: description of function
+     */
+    public function GetMatchStatistic(
+        $matchKey,
+        $statisticKey
+    ) {
         // TODO: check argument types
         // $matchKey: string
         // $statisticKey: string
@@ -171,8 +206,10 @@ class GameyeClient
         return $result;
     }
 
-    protected function FetchState($state, $args)
-    {
+    protected function FetchState(
+        $state,
+        $args
+    ) {
         $client = new \GuzzleHttp\Client();
 
         $url = $this->MakeFetchUrl($state, $args);
@@ -187,8 +224,10 @@ class GameyeClient
         return json_decode($response->getBody());
     }
 
-    protected function PerformAction($action, $body)
-    {
+    protected function PerformAction(
+        $action,
+        $body
+    ) {
         $client = new \GuzzleHttp\Client();
 
         $url = $this->MakeActionUrl($action);
@@ -203,28 +242,33 @@ class GameyeClient
         this.CheckResponse($response);
     }
 
-    private function CheckResponse($response)
-    {
+    private function CheckResponse(
+        $response
+    ) {
         // TODO: if response error (check status) then throw error with
         // $response->getBody() text
     }
 
-    private function MakeFetchUrl($state, $args)
-    {
+    private function MakeFetchUrl(
+        $state,
+        $args
+    ) {
         $url = sprintf('%s/fetch/%s/%s', $this->config['ApiEndpoint'], $state, implode('/', $args));
 
         return $url;
     }
 
-    private function MakeActionUrl($action)
-    {
+    private function MakeActionUrl(
+        $action
+    ) {
         $url = sprintf('%s/action/%s', $this->config['ApiEndpoint'], $action);
 
         return $url;
     }
 
-    private function CheckConfigSet($key)
-    {
+    private function CheckConfigSet(
+        $key
+    ) {
         if (!isset($this->config[$key]) || $this->config[$key] == '') {
             throw new \InvalidArgumentException(sprintf(
                 'please provide a value for "%s" in config',
