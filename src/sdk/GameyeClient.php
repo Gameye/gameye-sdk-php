@@ -12,9 +12,11 @@ class GameyeClient
 
     /**
      * @param object $config
+     * @param \GuzzleHttp\Client $httpClient
      */
     public function __construct(
-        $config
+        $config,
+        $httpClient = null
     ) {
         $defaultConfig = [
             'ApiEndpoint' => getenv('GAMEYE_API_ENDPOINT'),
@@ -24,181 +26,66 @@ class GameyeClient
 
         $this->CheckConfigSet('ApiEndpoint');
         $this->CheckConfigSet('AccessToken');
+
+        if (isset($httpClient)) {
+            $this->httpClient = $httpClient;
+        } else {
+            $this->httpClient = new \GuzzleHttp\Client();
+        }
     }
 
     /**
      * TODO: description of function
-     * @param string $matchKey
-     * @param int[] $locationKeys
-     * @param string $gameKey
-     * @param string $templateKey
-     * @param object $config
+     * @param object $payload
      */
     public function DoStartMatch(
-        $matchKey,
-        $locationKeys,
-        $gameKey,
-        $templateKey,
-        $config
+        $payload
     ) {
-        $matchKey = (string)$matchKey;
-        $locationKeys = array_map(
-            function ($locationKey) {
-                return (int) $locationKey;
-            },
-            (array) $locationKeys
-        );
-        $gameKey = (string)$gameKey;
-        $templateKey = (string)$templateKey;
-        $config = (object)$config;
-
-        $payload = [
-            'matchKey'    => $matchKey,
-            'locationKeys'=> $locationKeys,
-            'gameKey'     => $gameKey,
-            'templateKey' => $templateKey,
-            'config'      => $config,
-        ];
         $this->PerformAction('start-match', $payload);
     }
 
     /**
      * TODO: description of function
-     * @param string $matchKey
+     * @param object $payload
      */
     public function DoStopMatch(
-        $matchKey
+        $payload
     ) {
-        $matchKey = (string) $matchKey;
-
-        $payload = [
-            'matchKey' => $matchKey,
-        ];
         $this->PerformAction('stop-match', $payload);
     }
 
     /**
      * TODO: description of function
      */
-    public function GetGames()
+    public function GetGameState()
     {
         $state = $this->FetchState('game', []);
 
-        $result = [];
-
-        foreach ($state->game as $gameKey => $gameItem) {
-            $result[$gameKey] = (object) [
-                'gameKey' => $gameKey,
-                'name'    => $gameItem->gameKey,
-            ];
-        }
-
-        return $result;
+        return $state;
     }
 
     /**
      * TODO: description of function
-     * @param string $gameKey
      */
-    public function GetLocations(
-        $gameKey
-    ) {
-        $gameKey = (string)$gameKey;
-
-        $state = $this->FetchState('game', []);
-        $result = [];
-        foreach ($state->game->$gameKey->location as $locationKey => $hasLocation) {
-            if (!$hasLocation) {
-                continue;
-            }
-
-            $locationItem = $state->location->$locationKey;
-            $result[$locationKey] = (object) [
-                'locationKey' => $locationKey,
-                'name'       => $locationItem->locationName,
-            ];
-        }
-
-        return $result;
-    }
-
-    /**
-     * TODO: description of function
-     * @param string $gameKey
-     */
-    public function GetActiveMatches(
-        $gameKey
-    ) {
-        $gameKey = (string)$gameKey;
-
+    public function GetMatchState()
+    {
         $state = $this->FetchState('match', []);
 
-        $result = [];
-
-        foreach ($state->match as $matchKey => $matchItem) {
-            if ($matchItem->gameKey != $gameKey) {
-                continue;
-            }
-            $result[$matchKey] = (object) [
-                'matchKey'    => $matchKey,
-                'gameKey'     => $matchItem->gameKey,
-                'locationKey' => $matchItem->locationKey,
-                'host' => $matchItem->host,
-                'port' => (object) $matchItem->port,
-                'created'     => \DateTime::createFromFormat('U', intval($matchItem->created / 1000)),
-            ];
-        }
-
-        return $result;
+        return $state;
     }
 
     /**
      * TODO: description of function
      * @param string $gameKey
      */
-    public function GetTemplates(
+    public function GetTemplateState(
         $gameKey
     ) {
         $gameKey = (string)$gameKey;
 
         $state = $this->FetchState('template', [$gameKey]);
 
-        $result = [];
-
-        foreach ($state->template as $templateKey => $templateItem) {
-            $result[$templateKey] = (object) [
-                'templateKey' => $templateKey,
-                'name'        => $templateItem->templateKey,
-                'arg' => $templateItem->arg,
-            ];
-        }
-
-        return $result;
-    }
-
-    /**
-     * TODO: description of function
-     * @param string $matchKey
-     */
-    public function GetMatch(
-        $matchKey
-    ) {
-        $matchKey = (string)$matchKey;
-
-        $state = $this->FetchState('match', []);
-
-        $matchItem = $state->match->$matchKey;
-
-        $result = (object) [
-            'matchKey'    => $matchKey,
-            'gameKey'     => $matchItem->gameKey,
-            'locationKey' => $matchItem->locationKey,
-            'host' => $matchItem->host,
-            'port' => (object) $matchItem->port,
-            'created'     => \DateTime::createFromFormat('U', intval($matchItem->created / 1000)),
-        ];
-
-        return $result;
+        return $state;
     }
 
     /**
@@ -213,28 +100,22 @@ class GameyeClient
         $matchKey = (string)$matchKey;
         $statisticKey = (string)$statisticKey;
 
-        $state = $this->FetchState('statistic', [$matchKey]);
+        $state = $this->FetchState('statistic', [$matchKey, $statisticKey]);
 
-        $statItem = $state->match->$matchKey;
-
-        $result = (object)$statItem;
-
-        return $result;
+        return $state;
     }
 
     protected function FetchState(
         $state,
         $args
     ) {
-        $client = new \GuzzleHttp\Client();
-
         $url = $this->MakeFetchUrl($state, $args);
         $headers = [
             'Authorization' => sprintf('Bearer %s', $this->config['AccessToken']),
         ];
         $request = new \GuzzleHttp\Psr7\Request('GET', $url, $headers);
 
-        $response = $client->send($request);
+        $response = $this->httpClient->send($request);
         this.CheckResponse($response);
 
         return json_decode($response->getBody());
@@ -244,8 +125,6 @@ class GameyeClient
         $action,
         $body
     ) {
-        $client = new \GuzzleHttp\Client();
-
         $url = $this->MakeActionUrl($action);
         $headers = [
             'Content-Type'  => 'application/json',
@@ -254,7 +133,7 @@ class GameyeClient
         $body = json_encode($body);
         $request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
 
-        $response = $client->send($request);
+        $response = $this->httpClient->send($request);
         this.CheckResponse($response);
     }
 

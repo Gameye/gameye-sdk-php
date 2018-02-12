@@ -42,94 +42,94 @@ final class GameyeClientTest extends TestCase
         // TODO: implement me!
     }
 
-    public function testFetchGames()
+    public function testGetGameState()
     {
         $client = $this->createTestClientMock();
-        $this->assertEquals([
-            'csgo' => (object) ['gameKey' => 'csgo', 'name' => 'csgo'],
-            'tf2'  => (object) ['gameKey' => 'tf2',  'name' => 'tf2' ],
-            'css'  => (object) ['gameKey' => 'css',  'name' => 'css' ],
-            'l4d2' => (object) ['gameKey' => 'l4d2', 'name' => 'l4d2'],
-            'kf2'  => (object) ['gameKey' => 'kf2',  'name' => 'kf2' ],
-            'test' => (object) ['gameKey' => 'test', 'name' => 'test'],
-        ], $client->GetGames());
-    }
-
-    public function testGetLocations()
-    {
-        $client = $this->createTestClientMock();
-        $this->assertEquals([
-            100 => (object) ['locationKey' => 100, 'name' => 'Local'],
-        ], $client->GetLocations('test'));
-    }
-
-    public function testGetActiveMatches()
-    {
-        $client = $this->createTestClientMock();
-        $this->assertEquals([
-            'test-match-123' => (object) [
-                "gameKey" => 'test-game',
-                "host"=> "127.0.0.1",
-                "locationKey"=> 100,
-                "matchKey"=> "test-match-123",
-                "port"=> (object) [
-                    "game"=> 57015,
-                    "tv"=> 57025
-                ],
-                "created"=> new \DateTime('2018-02-09T15:48:58Z'),
+        $this->assertEquals((object)[
+            'game' => (object) [
+                'csgo' => (object) ['gameKey' => 'csgo', 'location' => (object) [] ],
+                'tf2'  => (object) ['gameKey' => 'tf2', 'location' => (object) [] ],
+                'css'  => (object) ['gameKey' => 'css', 'location' => (object) [] ],
+                'l4d2' => (object) ['gameKey' => 'l4d2', 'location' => (object) [] ],
+                'kf2'  => (object) ['gameKey' => 'kf2', 'location' => (object) [] ],
+                'test' => (object) ['gameKey' => 'test', 'location' => (object) [ '100' => true ] ],
             ],
-        ], $client->GetActiveMatches('test-game'));
+            'location' => (object) [
+                "1" => (object) [ "locationKey" => 1, "locationName" => "Rotterdam" ],
+                "2" => (object) [ "locationKey" => 2, "locationName" => "Ireland" ],
+                "3" => (object) [ "locationKey" => 3, "locationName" => "Dubai" ],
+                "4" => (object) [ "locationKey" => 4, "locationName" => "Tokyo" ],
+                "5" => (object) [ "locationKey" => 5, "locationName" => "Los Angeles" ],
+                "6" => (object) [ "locationKey" => 6, "locationName" => "Washington DC" ],
+                "100" => (object) [ "locationKey" => 100, "locationName" => "Local"],
+            ]
+        ], $client->GetGameState());
     }
 
-    public function testGetTemplates()
+    public function testGetMatchState()
     {
         $client = $this->createTestClientMock();
-        $this->assertEquals([
-            "t1" => (object) [
-                'templateKey' => 't1',
-                'name' => 't1',
-                'arg' => [
-                    (object)[
-                        "name"=> "tickRate",
-                        "type"=> "number",
-                        "defaultValue"=> 64,
-                        "option"=> [64, 128]
+        $this->assertEquals((object)[
+            "match" => (object)[
+                "test-match-123" => (object)[
+                    "created" => 1518191338368,
+                    "gameKey" => "test-game",
+                    "host" => "127.0.0.1",
+                    "locationKey" => 100,
+                    "matchKey" => "test-match-123",
+                    "port" => (object)[
+                        "game" => 57015,
+                        "tv" => 57025
+                    ]
+                ],
+                "test-match-456" => (object)[
+                    "created" => 1518191339368,
+                    "gameKey" => "testing",
+                    "host" => "127.0.0.1",
+                    "locationKey" => 100,
+                    "matchKey" => "test-match-456",
+                    "port" => (object)[
+                        "game" => 67015,
+                        "tv" => 67025
+                    ]
+                ]
+            ]
+        ], $client->GetMatchState());
+    }
+
+    public function testGetTemplateState()
+    {
+        $client = $this->createTestClientMock();
+        $this->assertEquals((object)[
+            "template" => (object) [
+                "t1" => (object) [
+                    'templateKey' => 't1',
+                    'arg' => [
+                        (object)[
+                            "name"=> "tickRate",
+                            "type"=> "number",
+                            "defaultValue"=> 64,
+                            "option"=> [64, 128]
+                        ],
                     ],
                 ],
-            ],
-            "t2"=> (object) [
-                'templateKey' => 't2',
-                'name' => 't2',
-                'arg' => [
-                    (object)[
-                        "name"=> "steamToken",
-                        "type"=> "string",
-                        "defaultValue"=> "",
-                    ],
-                    (object)[
-                        "name"=> "hostname",
-                        "type"=> "string",
-                        "defaultValue" => "gameye.com Match Server",
+                "t2"=> (object) [
+                    'templateKey' => 't2',
+                    'arg' => [
+                        (object)[
+                            "name"=> "steamToken",
+                            "type"=> "string",
+                            "defaultValue"=> "",
+                        ],
+                        (object)[
+                            "name"=> "hostname",
+                            "type"=> "string",
+                            "defaultValue" => "gameye.com Match Server",
+                        ],
                     ],
                 ],
-            ],
-        ], $client->GetTemplates('game-123'));
-    }
-
-    public function testGetMatch()
-    {
-        $client = $this->createTestClientMock();
-        $this->assertEquals((object) [
-            "gameKey" => 'testing',
-            "host"=> "127.0.0.1",
-            "locationKey"=> 100,
-            "matchKey"=> "test-match-456",
-            "port"=> (object) [
-                "game"=> 67015,
-                "tv"=> 67025
-            ],
-            "created"=> new \DateTime('2018-02-09T15:48:59Z'),
-        ], $client->GetMatch('test-match-456'));
+                ]
+        ], $client->GetTemplateState('game-123'));
     }
 
     public function testGetMatchStatistic()

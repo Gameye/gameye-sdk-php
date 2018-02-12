@@ -94,17 +94,5 @@ class GameyeClientMock extends GameyeClient
 
     protected function PerformAction($action, $body)
     {
-        $client = new \GuzzleHttp\Client();
-
-        $url = $this->MakeActionUrl($action);
-        $headers = [
-            'Content-Type'  => 'application/json',
-            'Authorization' => sprintf('Bearer %s', $this->config['AccessToken']),
-        ];
-        $body = json_encode($body);
-        $request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
-
-        $response = $client->send($request);
-        this.CheckResponse($response);
     }
 }

@@ -52,20 +52,20 @@ $gameye = new \Gameye\SDK\createGameyeClient([
 Create a match.
 
 ```php
-$gameye->DoStartMatch(
-    'yourmatchid',
-    [1],
-    'csgo',
-    'esl1on1',
-    [
+$gameye->DoStartMatch([
+    'matchKey'     => 'yourmatchid',
+    'locationKeys' => [1],
+    'gameKey'      => 'csgo',
+    'templateKey'  => 'esl1on1',
+    'config'      => [
         'steamToken' => 'yoursteamgameservertoken',
         'maxPlayers' => 12,
         'maxRounds'  => 15,
         'tickRate'   => 128,
         'map'        => 'de_dust2',
     ],
-    'https://platform.com/match?id=yourmatchid'
-);
+    'endCallbackUrl' => 'https://platform.com/match?id=yourmatchid'
+]);
 ```
 
 _After creating the match, the server details will be available via the `GetMatch` function._
@@ -83,45 +83,26 @@ Remove the map parameter from the config array and add the following two paramet
 ```
 You can find the id of a custom map at the end of a [Steam Workshop URL](https://steamcommunity.com/workshop/browse/?appid=730).
 
-Get a list of all available games we support.
-
+Get a list of all available games and locations we support.
 ```php
-$gameye->GetGames();
-```
-
-Get a list of all locations where a game is available.
-
-```php
-$gameye->GetLocations($gameKey);
+$gameye->GetGameState();
 ```
 
 Get a list of all available templates (configuration files) for a game.
-
 ```php
-$gameye->GetTemplates($gameKey);
-```
-Get a list of all your active matches.
-
-```php
-$gameye->GetActiveMatches($gameKey);
+$gameye->GetTemplateState($gameKey);
 ```
 
-Get the server details of a match.
-
+Get a detailed list of all your active matches.
 ```php
-$gameye->GetMatch($matchKey);
-```
-
-Get the result (scores and statistics) of a match.
-
-```php
-$gameye->GetMatchResult($matchKey);
+$gameye->GetMatchState();
 ```
 
 Stop a match.
-
 ```php
-$gameye->DoStopMatch($matchKey);
+$gameye->DoStopMatch([
+    'matchKey' => $matchKey,
+]);
 ```
 
 ## Create a Steam Server Login Token ##
