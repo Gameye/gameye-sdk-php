@@ -30,19 +30,19 @@ final class GameyeClientTest extends TestCase
         $gameyeClient = new GameyeClient([]);
     }
 
-    public function testDoStartMatch()
+    public function testCommandStartMatch()
     {
         $client = $this->createTestClientMock();
         // TODO: implement me!
     }
 
-    public function testDoStopMatch()
+    public function testCommandStopMatch()
     {
         $client = $this->createTestClientMock();
         // TODO: implement me!
     }
 
-    public function testGetGameState()
+    public function testQueryGame()
     {
         $client = $this->createTestClientMock();
         $this->assertEquals((object)[
@@ -63,10 +63,10 @@ final class GameyeClientTest extends TestCase
                 "6" => (object) [ "locationKey" => 6, "locationName" => "Washington DC" ],
                 "100" => (object) [ "locationKey" => 100, "locationName" => "Local"],
             ]
-        ], $client->GetGameState());
+        ], $client->queryGame());
     }
 
-    public function testGetMatchState()
+    public function testQueryMatch()
     {
         $client = $this->createTestClientMock();
         $this->assertEquals((object)[
@@ -94,10 +94,10 @@ final class GameyeClientTest extends TestCase
                     ]
                 ]
             ]
-        ], $client->GetMatchState());
+        ], $client->queryMatch());
     }
 
-    public function testGetTemplateState()
+    public function testQueryTemplate()
     {
         $client = $this->createTestClientMock();
         $this->assertEquals((object)[
@@ -129,10 +129,10 @@ final class GameyeClientTest extends TestCase
                     ],
                 ],
                 ]
-        ], $client->GetTemplateState('game-123'));
+        ], $client->QueryTemplate('game-123'));
     }
 
-    public function testGetMatchStatistic()
+    public function testQueryStatistic()
     {
         $client = $this->createTestClientMock();
         // TODO: implement me!

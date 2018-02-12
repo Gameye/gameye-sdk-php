@@ -9,7 +9,7 @@ use Gameye\SDK\GameyeClient;
  */
 class GameyeClientMock extends GameyeClient
 {
-    protected function FetchState($state, $args)
+    public function query($state, $args)
     {
         switch ($state) {
             case 'game': return json_decode('
@@ -92,7 +92,7 @@ class GameyeClientMock extends GameyeClient
         }
     }
 
-    protected function PerformAction($action, $body)
+    public function command($action, $body)
     {
     }
 }

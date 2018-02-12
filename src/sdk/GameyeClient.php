@@ -23,8 +23,8 @@ class GameyeClient
         ];
         $this->config = array_merge($defaultConfig, $config);
 
-        $this->CheckConfigSet('ApiEndpoint');
-        $this->CheckConfigSet('AccessToken');
+        $this->checkConfigSet('ApiEndpoint');
+        $this->checkConfigSet('AccessToken');
 
         $this->httpClient = new \GuzzleHttp\Client();
     }
@@ -33,28 +33,28 @@ class GameyeClient
      * TODO: description of function
      * @param object $payload
      */
-    public function DoStartMatch(
+    public function commandStartMatch(
         $payload
     ) {
-        $this->PerformAction('start-match', $payload);
+        $this->command('start-match', $payload);
     }
 
     /**
      * TODO: description of function
      * @param object $payload
      */
-    public function DoStopMatch(
+    public function commandStopMatch(
         $payload
     ) {
-        $this->PerformAction('stop-match', $payload);
+        $this->command('stop-match', $payload);
     }
 
     /**
      * TODO: description of function
      */
-    public function GetGameState()
+    public function queryGame()
     {
-        $state = $this->FetchState('game', []);
+        $state = $this->query('game', []);
 
         return $state;
     }
@@ -62,9 +62,9 @@ class GameyeClient
     /**
      * TODO: description of function
      */
-    public function GetMatchState()
+    public function queryMatch()
     {
-        $state = $this->FetchState('match', []);
+        $state = $this->query('match', []);
 
         return $state;
     }
@@ -73,12 +73,12 @@ class GameyeClient
      * TODO: description of function
      * @param string $gameKey
      */
-    public function GetTemplateState(
+    public function queryTemplate(
         $gameKey
     ) {
         $gameKey = (string)$gameKey;
 
-        $state = $this->FetchState('template', [$gameKey]);
+        $state = $this->query('template', [$gameKey]);
 
         return $state;
     }
@@ -88,23 +88,23 @@ class GameyeClient
      * @param string $matchKey
      * @param string $statisticKey
      */
-    public function GetMatchStatistic(
+    public function queryStatistic(
         $matchKey,
         $statisticKey
     ) {
         $matchKey = (string)$matchKey;
         $statisticKey = (string)$statisticKey;
 
-        $state = $this->FetchState('statistic', [$matchKey, $statisticKey]);
+        $state = $this->query('statistic', [$matchKey, $statisticKey]);
 
         return $state;
     }
 
-    protected function FetchState(
+    public function query(
         $state,
         $args
     ) {
-        $url = $this->MakeFetchUrl($state, $args);
+        $url = $this->makeQueryUrl($state, $args);
         $headers = [
             'Authorization' => sprintf('Bearer %s', $this->config['AccessToken']),
         ];
@@ -116,11 +116,11 @@ class GameyeClient
         return json_decode($response->getBody());
     }
 
-    protected function PerformAction(
+    public function command(
         $action,
         $body
     ) {
-        $url = $this->MakeActionUrl($action);
+        $url = $this->makeCommandUrl($action);
         $headers = [
             'Content-Type'  => 'application/json',
             'Authorization' => sprintf('Bearer %s', $this->config['AccessToken']),
@@ -132,16 +132,7 @@ class GameyeClient
         this.CheckResponse($response);
     }
 
-    private function CheckResponse(
-        $response
-    ) {
-        if (!($this->statusCode >= 200 && $this->statusCode < 300)) {
-            // if statucode is not in the 2xx range
-            throw new Exception($response->getBody());
-        }
-    }
-
-    private function MakeFetchUrl(
+    private function makeQueryUrl(
         $state,
         $args
     ) {
@@ -150,7 +141,7 @@ class GameyeClient
         return $url;
     }
 
-    private function MakeActionUrl(
+    private function makeCommandUrl(
         $action
     ) {
         $url = sprintf('%s/action/%s', $this->config['ApiEndpoint'], $action);
@@ -158,7 +149,16 @@ class GameyeClient
         return $url;
     }
 
-    private function CheckConfigSet(
+    private function checkResponse(
+        $response
+    ) {
+        if (!($this->statusCode >= 200 && $this->statusCode < 300)) {
+            // if statucode is not in the 2xx range
+            throw new \Exception($response->getBody());
+        }
+    }
+
+    private function checkConfigSet(
         $key
     ) {
         if (!isset($this->config[$key]) || $this->config[$key] == '') {

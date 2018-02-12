@@ -52,7 +52,7 @@ $gameye = new \Gameye\SDK\createGameyeClient([
 Create a match.
 
 ```php
-$gameye->DoStartMatch([
+$gameye->commandStartMatch([
     'matchKey'     => 'yourmatchid',
     'locationKeys' => [1],
     'gameKey'      => 'csgo',
@@ -85,22 +85,22 @@ You can find the id of a custom map at the end of a [Steam Workshop URL](https:/
 
 Get a list of all available games and locations we support.
 ```php
-$gameye->GetGameState();
+$gameye->queryGame();
 ```
 
 Get a list of all available templates (configuration files) for a game.
 ```php
-$gameye->GetTemplateState($gameKey);
+$gameye->queryTemplate($gameKey);
 ```
 
 Get a detailed list of all your active matches.
 ```php
-$gameye->GetMatchState();
+$gameye->queryMatch();
 ```
 
 Stop a match.
 ```php
-$gameye->DoStopMatch([
+$gameye->commandStopMatch([
     'matchKey' => $matchKey,
 ]);
 ```
