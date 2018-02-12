@@ -261,7 +261,7 @@ class GameyeClient
     private function CheckResponse(
         $response
     ) {
-        if(!($this->statusCode >= 200 && $this->statusCode < 300 )) {
+        if (!($this->statusCode >= 200 && $this->statusCode < 300)) {
             // if statucode is not in the 2xx range
             throw new Exception($response->getBody());
         }
