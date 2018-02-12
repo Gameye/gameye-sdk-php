@@ -52,17 +52,12 @@ class GameyeClient
         $templateKey = (string)$templateKey;
         $config = (object)$config;
 
-        $payload = (object) [
-            'matchKey'    => (string) $matchKey,
-            'locationKeys'=> array_map(
-                function ($value) {
-                    return (int) $value;
-                },
-                (array) $locationKeys
-            ),
-            'gameKey'     => (string) $gameKey,
-            'templateKey' => (string) $templateKey,
-            'config'      => (object) $config,
+        $payload = [
+            'matchKey'    => $matchKey,
+            'locationKeys'=> $locationKeys,
+            'gameKey'     => $gameKey,
+            'templateKey' => $templateKey,
+            'config'      => $config,
         ];
         $this->PerformAction('start-match', $payload);
     }
@@ -94,7 +89,7 @@ class GameyeClient
         foreach ($state->game as $gameKey => $gameItem) {
             $result[$gameKey] = (object) [
                 'gameKey' => $gameKey,
-                'name'   => $gameItem->gameKey,
+                'name'    => $gameItem->gameKey,
             ];
         }
 
@@ -149,7 +144,7 @@ class GameyeClient
                 'matchKey'    => $matchKey,
                 'gameKey'     => $matchItem->gameKey,
                 'locationKey' => $matchItem->locationKey,
-                'created'    => \DateTime::createFromFormat('U', $matchItem->created / 1000),
+                'created'     => \DateTime::createFromFormat('U', $matchItem->created / 1000),
             ];
         }
 
@@ -172,7 +167,7 @@ class GameyeClient
         foreach ($state->game->$gameKey->template as $templateKey => $templateItem) {
             $result[$templateKey] = (object) [
                 'templateKey' => $templateKey,
-                'name'       => $templateItem->name,
+                'name'        => $templateItem->name,
             ];
         }
 
@@ -193,9 +188,9 @@ class GameyeClient
         $matchItem = $state->match->$matchKey;
 
         $result = (object) [
-            'matchKey'     => $matchKey,
-            'gameKey'      => $matchItem->gameKey,
-            'locationKey'  => $matchItem->locationKey,
+            'matchKey'    => $matchKey,
+            'gameKey'     => $matchItem->gameKey,
+            'locationKey' => $matchItem->locationKey,
             'created'     => \DateTime::createFromFormat('U', $matchItem->created / 1000),
             'host'        => $matchItem->host,
             'portMapping' => $matchItem->portMapping,
