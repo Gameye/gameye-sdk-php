@@ -4,15 +4,15 @@ namespace Gameye\Test;
 
 use Gameye\SDK\GameyeClient;
 
-/**
- * Gameye API client mock, useful for testing purpose!
- */
-class GameyeClientMock extends GameyeClient
+final class GameyeMock
 {
-    public function query($state, $args)
+    private function __construct()
     {
-        switch ($state) {
-            case 'game': return json_decode('
+    }
+ 
+    public function mockGame()
+    {
+        return json_decode('
 {
     "game": {
         "csgo": { "gameKey": "csgo", "location": {} },
@@ -33,12 +33,16 @@ class GameyeClientMock extends GameyeClient
     }
 }
 ');
-            case 'match': return json_decode('
+    }
+ 
+    public function mockMatch()
+    {
+        return json_decode('
 {
     "match": {
         "test-match-123": {
             "created": 1518191338368,
-            "gameKey": "test-game",
+            "gameKey": "test",
             "host": "127.0.0.1",
             "locationKey": 100,
             "matchKey": "test-match-123",
@@ -61,8 +65,11 @@ class GameyeClientMock extends GameyeClient
     }
 }
 ');
-
-            case 'template': return json_decode('
+    }
+ 
+    public function mockTemplate()
+    {
+        return json_decode('
 {
     "template": {
         "t1": {
@@ -89,10 +96,5 @@ class GameyeClientMock extends GameyeClient
     }
 }
 ');
-        }
-    }
-
-    public function command($action, $body)
-    {
     }
 }

@@ -51,35 +51,34 @@ class GameyeClient
 
     /**
      * TODO: description of function
+     * @return object
      */
     public function queryGame()
     {
         $state = $this->query('game', []);
-
         return $state;
     }
 
     /**
      * TODO: description of function
+     * @return object
      */
     public function queryMatch()
     {
         $state = $this->query('match', []);
-
         return $state;
     }
 
     /**
      * TODO: description of function
      * @param string $gameKey
+     * @return object
      */
     public function queryTemplate(
         $gameKey
     ) {
         $gameKey = (string)$gameKey;
-
         $state = $this->query('template', [$gameKey]);
-
         return $state;
     }
 
@@ -87,6 +86,7 @@ class GameyeClient
      * TODO: description of function
      * @param string $matchKey
      * @param string $statisticKey
+     * @return object
      */
     public function queryStatistic(
         $matchKey,
