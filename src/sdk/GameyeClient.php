@@ -34,7 +34,7 @@ class GameyeClient
      * @param string $templateKey
      * @param object $config
      */
-    public function StartMatch(
+    public function DoStartMatch(
         $matchKey,
         $locationKeys,
         $gameKey,
@@ -66,7 +66,7 @@ class GameyeClient
      * TODO: description of function
      * @param string $matchKey
      */
-    public function StopMatch(
+    public function DoStopMatch(
         $matchKey
     ) {
         $matchKey = (string) $matchKey;

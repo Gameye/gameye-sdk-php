@@ -30,17 +30,17 @@ final class GameyeClientTest extends TestCase
         $gameyeClient = new GameyeClient([]);
     }
 
-    public function testStartMatch()
+    public function testDoStartMatch()
     {
         $client = $this->createTestClientMock();
     }
 
-    public function testStopMatch()
+    public function testDoStopMatch()
     {
         $client = $this->createTestClientMock();
     }
 
-    public function testGetGames()
+    public function testFetchGames()
     {
         $client = $this->createTestClientMock();
         $this->assertEquals([
