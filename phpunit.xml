@@ -1,7 +1,7 @@
 <phpunit bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="GameyeSDK">
-      <directory>tests</directory>
+      <directory>src/test</directory>
     </testsuite>
   </testsuites>
   <filter>
