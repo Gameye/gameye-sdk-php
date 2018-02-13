@@ -52,11 +52,11 @@ $gameye = new \Gameye\SDK\createGameyeClient([
 Create a match.
 
 ```php
-$gameye->StartMatch([
-    'matchId'     => 'yourmatchid',
-    'locationIds' => [1],
-    'gameId'      => 1,
-    'templateId'  => 'esl1on1',
+$gameye->commandStartMatch([
+    'matchKey'     => 'yourmatchid',
+    'locationKeys' => [1],
+    'gameKey'      => 'csgo',
+    'templateKey'  => 'esl1on1',
     'config'      => [
         'steamToken' => 'yoursteamgameservertoken',
         'maxPlayers' => 12,
@@ -76,52 +76,33 @@ Remove the map parameter from the config array and add the following two paramet
   
 
 ```php
-'config'      => [
+'config' => [
     'workshopMap' => 'workshopid',
     'authkey'     => 'yoursteamwebapikey'
 ],
 ```
 You can find the id of a custom map at the end of a [Steam Workshop URL](https://steamcommunity.com/workshop/browse/?appid=730).
 
-Get a list of all available games we support.
-
+Get a list of all available games and locations we support.
 ```php
-$gameye->GetGames();
-```
-
-Get a list of all locations where a game is available.
-
-```php
-$gameye->GetLocations($gameid);
+$gameye->queryGame();
 ```
 
 Get a list of all available templates (configuration files) for a game.
-
 ```php
-$gameye->GetTemplates($gameid);
-```
-Get a list of all your active matches.
-
-```php
-$gameye->GetActiveMatches($gameid);
+$gameye->queryTemplate($gameKey);
 ```
 
-Get the server details of a match.
-
+Get a detailed list of all your active matches.
 ```php
-$gameye->GetMatch($matchid);
-```
-
-Get the result (scores and statistics) of a match.
-
-```php
-$gameye->GetMatchResult($matchid);
+$gameye->queryMatch();
 ```
 
 Stop a match.
-
 ```php
-$gameye->StopMatch($matchid);
+$gameye->commandStopMatch([
+    'matchKey' => $matchKey,
+]);
 ```
 
 ## Create a Steam Server Login Token ##
@@ -154,3 +135,20 @@ We encourage everyone to help us improve our public packages. If you want to con
 
 ## Support ##
 Contact: [gameye.com](https://gameye.com) — support@gameye.com
+
+
+## automated tests
+NEVER commit something that breaks the build! If you do, you suck. You can
+easily prevent this by linking the `test.sh` script as a git `pre-push` or
+`pre-commit` hook!
+
+like this:
+```bash
+ln test.sh .git/hooks/pre-commit
+```
+
+If you use a git commit hook for testing, you may also bypass this hook with
+the `--no-verify` or `-n` option of git commit, like this:
+```bash
+git commit -nm'some commit message'
+```

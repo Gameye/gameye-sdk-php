@@ -15,7 +15,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Gameye\\SDK\\": "src/"
+            "Gameye\\SDK\\": "src/sdk/",
+            "Gameye\\Test\\": "src/test/"
         }
     },
     "require" : {

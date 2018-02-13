@@ -1,5 +1,7 @@
 <?php
 
+namespace Gameye\Test;
+
 use Gameye\SDK\GameyeClient;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +25,7 @@ final class GameyeClientTest extends TestCase
 
     public function testCreateApiClientMissingAccessToken()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $gameyeClient = new GameyeClient([]);
     }
