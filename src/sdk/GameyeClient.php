@@ -111,7 +111,7 @@ class GameyeClient
         $request = new \GuzzleHttp\Psr7\Request('GET', $url, $headers);
 
         $response = $this->httpClient->send($request);
-        this.CheckResponse($response);
+        $this->CheckResponse($response);
 
         return json_decode($response->getBody());
     }
@@ -129,7 +129,7 @@ class GameyeClient
         $request = new \GuzzleHttp\Psr7\Request('POST', $url, $headers, $body);
 
         $response = $this->httpClient->send($request);
-        this.CheckResponse($response);
+        $this->CheckResponse($response);
     }
 
     private function makeQueryUrl(
@@ -152,7 +152,8 @@ class GameyeClient
     private function checkResponse(
         $response
     ) {
-        if (!($this->statusCode >= 200 && $this->statusCode < 300)) {
+        $statusCode = $response->getStatusCode();
+        if (!($statusCode >= 200 && $statusCode < 300)) {
             // if statucode is not in the 2xx range
             throw new \Exception($response->getBody());
         }
