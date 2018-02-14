@@ -25,7 +25,7 @@ The easiest way to install the Gameye SDK is to require it with [Composer](http:
 
     {
         "require": {
-            "gameye/gameye-sdk-php": "1.*"
+            "gameye/gameye-sdk-php": "2.*"
         }
     }
 
@@ -35,15 +35,12 @@ You may also git checkout or [download all the files](https://github.com/Gameye/
 
 1. Use the Gameye SDK to create a match with your desired game-specific options. It's important to specify an unique ID in order to be able to retrieve the details when the match has been created.
 
-2. After the first player has joined the match, the status will change from `waiting` to `playing`. At this point it will be possible to retrieve statistics and scores from the match.
-
-3. After the match has ended our platform will post a request to your webhook to let you know the match is done.
-
+2. After the match has ended our platform will post a request to your webhook to let you know the match is done.
 
 Initialize the Gameye API client and set your API key.
 
 ```php
-$gameye = new \Gameye\SDK\createGameyeClient([
+$gameye = new \Gameye\SDK\GameyeClient([
             'AccessToken' => 'yourgameyeapitoken',
             'ApiEndpoint' => 'https://api.gameye.com',
         ]);
@@ -57,7 +54,7 @@ $gameye->commandStartMatch([
     'locationKeys' => [1],
     'gameKey'      => 'csgo',
     'templateKey'  => 'esl1on1',
-    'config'      => [
+    'config'       => [
         'steamToken' => 'yoursteamgameservertoken',
         'maxPlayers' => 12,
         'maxRounds'  => 15,
@@ -68,12 +65,12 @@ $gameye->commandStartMatch([
 ]);
 ```
 
-_After creating the match, the server details will be available via the `GetMatch` function._
+_After creating the match, the server details will be available via the `queryMatch` function._
 _When the match has been ended we will make a GET request to your callback url so you can fetch the match results._
 
 Create a match with a custom (Steam Workshop) map.  
 Remove the map parameter from the config array and add the following two parameters.  
-  
+
 
 ```php
 'config' => [
@@ -135,20 +132,3 @@ We encourage everyone to help us improve our public packages. If you want to con
 
 ## Support ##
 Contact: [gameye.com](https://gameye.com) — support@gameye.com
-
-
-## automated tests
-NEVER commit something that breaks the build! If you do, you suck. You can
-easily prevent this by linking the `test.sh` script as a git `pre-push` or
-`pre-commit` hook!
-
-like this:
-```bash
-ln test.sh .git/hooks/pre-commit
-```
-
-If you use a git commit hook for testing, you may also bypass this hook with
-the `--no-verify` or `-n` option of git commit, like this:
-```bash
-git commit -nm'some commit message'
-```
