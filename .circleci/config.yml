@@ -17,7 +17,7 @@ jobs:
           paths:
             - ./vendor
           key: deps
-      - run: phpunit
+      - run: ./vendor/bin/phpunit
   
   php-7.1:
     docker:
@@ -32,7 +32,7 @@ jobs:
           paths:
             - ./vendor
           key: deps
-      - run: phpunit
+      - run: ./vendor/bin/phpunit
 
 workflows:
   version: 2
