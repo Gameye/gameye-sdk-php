@@ -11,12 +11,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - deps-{{ checksum "composer.json" }}
+            - cache
       - run: composer install --no-interaction
       - save_cache:
+          key: cache
           paths:
-            - ./vendor
-          key: deps
+            - ~/.cache
       - run: ./vendor/bin/phpunit
   
   php-7.1:
@@ -26,12 +26,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - deps-{{ checksum "composer.json" }}
+            - cache
       - run: composer install --no-interaction
       - save_cache:
+          key: cache
           paths:
-            - ./vendor
-          key: deps
+            - ~/.cache
       - run: ./vendor/bin/phpunit
 
 workflows:
