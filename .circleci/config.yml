@@ -12,7 +12,7 @@ jobs:
       - restore_cache:
           keys:
             - deps-{{ checksum "composer.json" }}
-      - run: composer install -n --prefer-dist
+      - run: composer install
       - save_cache:
           paths:
             - ./vendor
@@ -27,7 +27,7 @@ jobs:
       - restore_cache:
           keys:
             - deps-{{ checksum "composer.json" }}
-      - run: composer install -n --prefer-dist
+      - run: composer install
       - save_cache:
           paths:
             - ./vendor
