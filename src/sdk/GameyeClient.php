@@ -3,7 +3,7 @@
 namespace Gameye\SDK;
 
 /**
- * Gameye API client
+ * Gameye API client.
  */
 class GameyeClient
 {
@@ -11,7 +11,7 @@ class GameyeClient
     private $httpClient;
 
     /**
-     * @param object $config
+     * @param object             $config
      * @param \GuzzleHttp\Client $httpClient
      */
     public function __construct(
@@ -30,7 +30,8 @@ class GameyeClient
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @param object $payload
      */
     public function commandStartMatch(
@@ -40,7 +41,8 @@ class GameyeClient
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @param object $payload
      */
     public function commandStopMatch(
@@ -50,50 +52,59 @@ class GameyeClient
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @return object
      */
     public function queryGame()
     {
         $state = $this->query('game', []);
+
         return $state;
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @return object
      */
     public function queryMatch()
     {
         $state = $this->query('match', []);
+
         return $state;
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @param string $gameKey
+     *
      * @return object
      */
     public function queryTemplate(
         $gameKey
     ) {
-        $gameKey = (string)$gameKey;
+        $gameKey = (string) $gameKey;
         $state = $this->query('template', [$gameKey]);
+
         return $state;
     }
 
     /**
-     * TODO: description of function
+     * TODO: description of function.
+     *
      * @param string $matchKey
      * @param string $statisticKey
+     *
      * @return object
      */
     public function queryStatistic(
         $matchKey,
         $statisticKey
     ) {
-        $matchKey = (string)$matchKey;
-        $statisticKey = (string)$statisticKey;
+        $matchKey = (string) $matchKey;
+        $statisticKey = (string) $statisticKey;
 
         $state = $this->query('statistic', [$matchKey, $statisticKey]);
 

@@ -2,14 +2,12 @@
 
 namespace Gameye\Test;
 
-use Gameye\SDK\GameyeClient;
-
 final class GameyeMock
 {
     private function __construct()
     {
     }
- 
+
     public function mockGame()
     {
         return json_decode('
@@ -34,7 +32,7 @@ final class GameyeMock
 }
 ');
     }
- 
+
     public function mockMatch()
     {
         return json_decode('
@@ -66,7 +64,7 @@ final class GameyeMock
 }
 ');
     }
- 
+
     public function mockTemplate()
     {
         return json_decode('

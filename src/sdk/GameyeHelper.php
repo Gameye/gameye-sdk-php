@@ -3,7 +3,7 @@
 namespace Gameye\SDK;
 
 /**
- * Gameye API helper
+ * Gameye API helper.
  */
 final class GameyeHelper
 {
@@ -13,8 +13,10 @@ final class GameyeHelper
 
     /**
      * converts an milliseconds epoch (as used in the api states) to a
-     * PHP DateTime object
+     * PHP DateTime object.
+     *
      * @param int $epoch
+     *
      * @return \DateTime
      */
     public static function toDateTime($epoch)
@@ -23,14 +25,16 @@ final class GameyeHelper
     }
 
     /**
-     * Select a list of active matches
+     * Select a list of active matches.
+     *
      * @param object $matchState
+     *
      * @return object
      */
     public static function selectMatchList(
         $matchState
     ) {
-        $matchState = (object)$matchState;
+        $matchState = (object) $matchState;
 
         $matchList = [];
         foreach ($matchState->match as $matchKey => $matchItem) {
@@ -41,17 +45,19 @@ final class GameyeHelper
     }
 
     /**
-     * Select a list of active matches for a game
+     * Select a list of active matches for a game.
+     *
      * @param object $matchState
      * @param string $gameKey
+     *
      * @return array
      */
     public static function selectMatchListForGame(
         $matchState,
         $gameKey
     ) {
-        $matchState = (object)$matchState;
-        $gameKey = (string)$gameKey;
+        $matchState = (object) $matchState;
+        $gameKey = (string) $gameKey;
 
         $matchList = [];
         foreach ($matchState->match as $matchKey => $matchItem) {
@@ -67,17 +73,19 @@ final class GameyeHelper
 
     /**
      * Get details about a single match from a match-state as returned by
-     * the gameye api
+     * the gameye api.
+     *
      * @param object $matchState
      * @param string $matchKey
+     *
      * @return object
      */
     public static function selectMatchItem(
         $matchState,
         $matchKey
     ) {
-        $matchState = (object)$matchState;
-        $matchKey = (string)$matchKey;
+        $matchState = (object) $matchState;
+        $matchKey = (string) $matchKey;
 
         $matchItem = $matchState->match->$matchKey;
 
@@ -85,17 +93,19 @@ final class GameyeHelper
     }
 
     /**
-     * Selects all locations for a given game
+     * Selects all locations for a given game.
+     *
      * @param object $gameState
      * @param string $gameKey
+     *
      * @return array
      */
     public static function selectLocationListForGame(
         $gameState,
         $gameKey
     ) {
-        $gameState = (object)$gameState;
-        $gameKey = (string)$gameKey;
+        $gameState = (object) $gameState;
+        $gameKey = (string) $gameKey;
 
         $locationList = [];
         foreach ($gameState->game->$gameKey->location as $locationKey => $hasLocation) {
@@ -111,14 +121,16 @@ final class GameyeHelper
     }
 
     /**
-     * Select a list of templates
+     * Select a list of templates.
+     *
      * @param object $templateState
+     *
      * @return object
      */
     public static function selectTemplateList(
         $templateState
     ) {
-        $templateState = (object)$templateState;
+        $templateState = (object) $templateState;
 
         $templateList = [];
         foreach ($templateState->template as $templateKey => $templateItem) {
@@ -130,17 +142,19 @@ final class GameyeHelper
 
     /**
      * Get details about a single template from a template-state as returned by
-     * the gameye api
+     * the gameye api.
+     *
      * @param object $templateState
      * @param string $templateKey
+     *
      * @return object
      */
     public static function selectTemplateItem(
         $templateState,
         $templateKey
     ) {
-        $templateState = (object)$templateState;
-        $templateKey = (string)$templateKey;
+        $templateState = (object) $templateState;
+        $templateKey = (string) $templateKey;
 
         $templateItem = $templateState->template->$templateKey;
 
