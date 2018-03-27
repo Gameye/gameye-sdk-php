@@ -18,16 +18,16 @@ final class GameyeMock
         "css": { "gameKey": "css", "location": {} },
         "l4d2": { "gameKey": "l4d2", "location": {} },
         "kf2": { "gameKey": "kf2", "location": {} },
-        "test": { "gameKey": "test", "location": { "100": true } }
+        "test": { "gameKey": "test", "location": { "local": true } }
     },
     "location": {
-        "1": { "locationKey": 1, "locationName": "Rotterdam" },
-        "2": { "locationKey": 2, "locationName": "Ireland" },
-        "3": { "locationKey": 3, "locationName": "Dubai" },
-        "4": { "locationKey": 4, "locationName": "Tokyo" },
-        "5": { "locationKey": 5, "locationName": "Los Angeles" },
-        "6": { "locationKey": 6, "locationName": "Washington DC" },
-        "100": { "locationKey": 100, "locationName": "Local" }
+        "rotterdam": { "locationKey": "rotterdam" },
+        "ireland": { "locationKey": "ireland" },
+        "dubai": { "locationKey": "dubai" },
+        "tokyo": { "locationKey": "tokyo" },
+        "los_angeles": { "locationKey": "los_angeles" },
+        "washington_dc": { "locationKey": "washington_dc" },
+        "local": { "locationKey": "local" }
     }
 }
 ');
@@ -42,7 +42,7 @@ final class GameyeMock
             "created": 1518191338368,
             "gameKey": "test",
             "host": "127.0.0.1",
-            "locationKey": 100,
+            "locationKey": "local",
             "matchKey": "test-match-123",
             "port": {
                 "game": 57015,
@@ -53,7 +53,7 @@ final class GameyeMock
             "created": 1518191339368,
             "gameKey": "testing",
             "host": "127.0.0.1",
-            "locationKey": 100,
+            "locationKey": "local",
             "matchKey": "test-match-456",
             "port": {
                 "game": 67015,

@@ -44,7 +44,7 @@ final class GameyeHelperTest extends TestCase
         $gameState = GameyeMock::mockGame();
         $locationList = GameyeHelper::selectLocationListForGame($gameState, 'test');
         $this->assertEquals(count($locationList), 1);
-        $this->assertEquals($locationList[100]->locationKey, 100);
+        $this->assertEquals($locationList['local']->locationKey, 'local');
     }
 
     public function testSelectTemplateList()

@@ -51,7 +51,7 @@ Create a match.
 ```php
 $gameye->commandStartMatch([
     'matchKey'     => 'yourmatchid',
-    'locationKeys' => [1],
+    'locationKeys' => ['rotterdam', 'ireland'],
     'gameKey'      => 'csgo',
     'templateKey'  => 'esl1on1',
     'config'       => [
