@@ -35,7 +35,7 @@ You may also git checkout or [download all the files](https://github.com/Gameye/
 
 1. Use the Gameye SDK to create a match with your desired game-specific options. It's important to specify an unique ID in order to be able to retrieve the details when the match has been created.
 
-2. After the match has ended our platform will post a request to your webhook to let you know the match is done.
+2. After the match has ended we will fire a GET request to your webhook to let you know the match is done.
 
 Initialize the Gameye API client and set your API key.
 
@@ -55,11 +55,14 @@ $gameye->commandStartMatch([
     'gameKey'      => 'csgo',
     'templateKey'  => 'esl1on1',
     'config'       => [
-        'steamToken' => 'yoursteamgameservertoken',
-        'maxPlayers' => 12,
-        'maxRounds'  => 15,
-        'tickRate'   => 128,
-        'map'        => 'de_dust2',
+        'steamToken'  => 'yoursteamgameservertoken',
+        'maxPlayers'  => 12,
+        'maxRounds'   => 15,
+        'tickRate'    => 128,
+        'map'         => 'de_dust2',
+        'mapgroup     => 'mg_active',
+        'teamNameOne' => 'Counter Terrorists',
+        'teamNameTwo' => 'Terrorists'
     ],
     'endCallbackUrl' => 'https://platform.com/match?id=yourmatchid'
 ]);
@@ -100,6 +103,66 @@ Stop a match.
 $gameye->commandStopMatch([
     'matchKey' => $matchKey,
 ]);
+```
+
+## Match results ##
+
+When the match has been ended you can fetch the game scores and other statistics. You can pass a webhook URL when to create a match to get a notification when a match is done.
+
+The following statistics are currently available for CS:GO
+
+Match statistics:
+- time started
+- time ended
+- rounds played
+
+Team statistics:
+- name
+- score
+- players
+
+Player statistics:
+- nickname
+- steam id
+- kills
+- assists
+- deaths
+
+First, import the Gameye Selector class.
+
+```php
+use \Gameye\SDK\GameyeSelector;
+```
+
+Get the statistic state of a match.
+
+```php
+$match = $gameye->queryStatistic($matchKey);
+```
+
+Get the teams that participated in a match.
+
+```php
+GameyeSelector::selectTeamList($match);
+```
+
+Get a single team.
+
+```php
+GameyeSelector::selectTeamItem($match, $teamKey);
+```
+
+Get all the players that participated in a match.
+
+```php
+GameyeSelector::selectPlayerList($match);
+```
+Note: we only show players that were connected to the match when it ended. For example if a player leaves in the last round of a match, he won't included in the statistics.
+
+Get all players from a team.
+
+```php
+GameyeSelector::selectPlayerListForTeam($match, $teamKey);
 ```
 
 ## Create a Steam Server Login Token ##
