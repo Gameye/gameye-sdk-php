@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class GameyeSelectorTest extends TestCase
 {
+    //region match
+
     public function testSelectMatchList()
     {
         $matchState = GameyeMock::mockMatch();
@@ -34,6 +36,10 @@ final class GameyeSelectorTest extends TestCase
         $this->assertEquals($matchItem->matchKey, 'test-match-123');
     }
 
+    //endregion
+
+    //region location
+
     public function testSelectLocationListForGame()
     {
         $gameState = GameyeMock::mockGame();
@@ -41,6 +47,10 @@ final class GameyeSelectorTest extends TestCase
         $this->assertEquals(count($locationList), 1);
         $this->assertEquals($locationList['local']->locationKey, 'local');
     }
+
+    //endregion
+
+    //region template
 
     public function testSelectTemplateList()
     {
@@ -57,4 +67,61 @@ final class GameyeSelectorTest extends TestCase
         $templateItem = GameyeSelector::selectTemplateItem($templateState, 't2');
         $this->assertEquals($templateItem->templateKey, 't2');
     }
+
+    //endregion
+
+    //region team
+
+    public function testSelectTeamList()
+    {
+        $statisticState = GameyeMock::mockStatistic();
+        $teamList = GameyeSelector::selectTeamList($statisticState);
+        $this->assertEquals(count($teamList), 2);
+        $this->assertEquals($teamList['1']->teamKey, '1');
+        $this->assertEquals($teamList['1']->name, 'TeamA');
+        $this->assertEquals($teamList['2']->teamKey, '2');
+        $this->assertEquals($teamList['2']->name, 'TeamB');
+    }
+
+    public function testSelectTeamItem()
+    {
+        $statisticState = GameyeMock::mockStatistic();
+        $teamItem = GameyeSelector::selectTeamItem($statisticState, '2');
+        $this->assertEquals($teamItem->teamKey, '2');
+        $this->assertEquals($teamItem->name, 'TeamB');
+    }
+
+    //endregion
+
+    //region player
+
+    public function testSelectPlayerList()
+    {
+        $statisticState = GameyeMock::mockStatistic();
+        $playerList = GameyeSelector::selectPlayerList($statisticState);
+        $this->assertEquals(count($playerList), 2);
+        $this->assertEquals($playerList['3']->playerKey, '3');
+        $this->assertEquals($playerList['3']->name, 'denise');
+        $this->assertEquals($playerList['4']->playerKey, '4');
+        $this->assertEquals($playerList['4']->name, 'Smashmint');
+    }
+
+    public function testSelectPlayerListForTeam()
+    {
+        $statisticState = GameyeMock::mockStatistic();
+        $playerList = GameyeSelector::selectPlayerListForTeam($statisticState, '1');
+        $this->assertEquals(count($playerList), 1);
+        $this->assertEquals($playerList['3']->playerKey, '3');
+        $this->assertEquals($playerList['3']->name, 'denise');
+    }
+
+    public function testSelectPlayerItem()
+    {
+        $statisticState = GameyeMock::mockStatistic();
+        $playerItem = GameyeSelector::selectPlayerItem($statisticState, '4');
+        $this->assertEquals($playerItem->playerKey, '4');
+        $this->assertEquals($playerItem->name, 'Smashmint');
+    }
+
+    //endregion
 }

@@ -11,12 +11,14 @@ final class GameyeSelector
     {
     }
 
+    //region match
+
     /**
      * Select a list of active matches.
      *
      * @param object $matchState
      *
-     * @return object
+     * @return array
      */
     public static function selectMatchList(
         $matchState
@@ -79,6 +81,10 @@ final class GameyeSelector
         return $matchItem;
     }
 
+    //endregion
+
+    //region location
+
     /**
      * Selects all locations for a given game.
      *
@@ -107,12 +113,16 @@ final class GameyeSelector
         return $locationList;
     }
 
+    //endregion
+
+    //region template
+
     /**
      * Select a list of templates.
      *
      * @param object $templateState
      *
-     * @return object
+     * @return array
      */
     public static function selectTemplateList(
         $templateState
@@ -147,4 +157,116 @@ final class GameyeSelector
 
         return $templateItem;
     }
+
+    //endregion
+
+    //region team
+
+    /**
+     * Get a list of all teams in the statistic-state.
+     *
+     * @param object $statisticState
+     *
+     * @return array
+     */
+    public static function selectTeamList(
+        $statisticState
+    ) {
+        $statisticState = (object) $statisticState;
+
+        $teamList = [];
+        foreach ($statisticState->team as $teamKey => $teamItem) {
+            $teamList[$teamKey] = $teamItem;
+        }
+
+        return $teamList;
+    }
+
+    /**
+     * Get a single team from the statistic-state.
+     *
+     * @param object $statisticState
+     * @param string $teamKey        name of the team
+     *
+     * @return object
+     */
+    public static function selectTeamItem(
+        $statisticState,
+        $teamKey
+    ) {
+        $statisticState = (object) $statisticState;
+        $teamKey = (string) $teamKey;
+
+        $teamItem = $statisticState->team->$teamKey;
+
+        return $teamItem;
+    }
+
+    //endregion
+
+    //region player
+
+    /**
+     * List all players in the match.
+     *
+     * @param object $statisticState
+     *
+     * @return array
+     */
+    public static function selectPlayerList(
+        $statisticState
+    ) {
+        $statisticState = (object) $statisticState;
+
+        $playerList = [];
+        foreach ($statisticState->player as $playerKey => $playerItem) {
+            $playerList[$playerKey] = $playerItem;
+        }
+
+        return $playerList;
+    }
+
+    /**
+     * Get a list if all players in a team.
+     *
+     * @param object $statisticState
+     * @param string $teamKey        name of the team
+     *
+     * @return array
+     */
+    public static function selectPlayerListForTeam(
+        $statisticState,
+        $teamKey
+    ) {
+        $statisticState = (object) $statisticState;
+
+        $playerList = [];
+        foreach ($statisticState->team->$teamKey->player as $playerKey => $playerEnabled) {
+            $playerItem = $statisticState->player->$playerKey;
+            $playerList[$playerKey] = $playerItem;
+        }
+
+        return $playerList;
+    }
+
+    /**
+     * Get a single player in the match.
+     *
+     * @param object $statisticState
+     *
+     * @return object
+     */
+    public static function selectPlayerItem(
+        $statisticState,
+        $playerKey
+    ) {
+        $statisticState = (object) $statisticState;
+        $playerKey = (string) $playerKey;
+
+        $playerItem = $statisticState->player->$playerKey;
+
+        return $playerItem;
+    }
+
+    //endregion
 }
