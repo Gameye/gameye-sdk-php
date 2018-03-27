@@ -2,25 +2,18 @@
 
 namespace Gameye\Test;
 
-use Gameye\SDK\GameyeHelper;
+use Gameye\SDK\GameyeSelector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Gameye\SDK\GameyeHelper
+ * @covers Gameye\SDK\GameyeSelector
  */
-final class GameyeHelperTest extends TestCase
+final class GameyeSelectorTest extends TestCase
 {
-    public function testToDateTime()
-    {
-        $this->assertEquals(GameyeHelper::toDateTime(1518451384207), new \DateTime('2018-02-12T16:03:04.000Z'));
-    }
-
-    //region deprecated
-
     public function testSelectMatchList()
     {
         $matchState = GameyeMock::mockMatch();
-        $matchList = GameyeHelper::selectMatchList($matchState);
+        $matchList = GameyeSelector::selectMatchList($matchState);
         $this->assertEquals(count($matchList), 2);
         $this->assertEquals($matchList['test-match-123']->matchKey, 'test-match-123');
         $this->assertEquals($matchList['test-match-456']->matchKey, 'test-match-456');
@@ -29,7 +22,7 @@ final class GameyeHelperTest extends TestCase
     public function testSelectMatchListForGame()
     {
         $matchState = GameyeMock::mockMatch();
-        $matchList = GameyeHelper::selectMatchListForGame($matchState, 'test');
+        $matchList = GameyeSelector::selectMatchListForGame($matchState, 'test');
         $this->assertEquals(count($matchList), 1);
         $this->assertEquals($matchList['test-match-123']->gameKey, 'test');
     }
@@ -37,14 +30,14 @@ final class GameyeHelperTest extends TestCase
     public function testSelectMatchItem()
     {
         $matchState = GameyeMock::mockMatch();
-        $matchItem = GameyeHelper::selectMatchItem($matchState, 'test-match-123');
+        $matchItem = GameyeSelector::selectMatchItem($matchState, 'test-match-123');
         $this->assertEquals($matchItem->matchKey, 'test-match-123');
     }
 
     public function testSelectLocationListForGame()
     {
         $gameState = GameyeMock::mockGame();
-        $locationList = GameyeHelper::selectLocationListForGame($gameState, 'test');
+        $locationList = GameyeSelector::selectLocationListForGame($gameState, 'test');
         $this->assertEquals(count($locationList), 1);
         $this->assertEquals($locationList['local']->locationKey, 'local');
     }
@@ -52,7 +45,7 @@ final class GameyeHelperTest extends TestCase
     public function testSelectTemplateList()
     {
         $templateState = GameyeMock::mockTemplate();
-        $templateList = GameyeHelper::selectTemplateList($templateState);
+        $templateList = GameyeSelector::selectTemplateList($templateState);
         $this->assertEquals(count($templateList), 2);
         $this->assertEquals($templateList['t1']->templateKey, 't1');
         $this->assertEquals($templateList['t2']->templateKey, 't2');
@@ -61,9 +54,7 @@ final class GameyeHelperTest extends TestCase
     public function testSelectTemplateItem()
     {
         $templateState = GameyeMock::mockTemplate();
-        $templateItem = GameyeHelper::selectTemplateItem($templateState, 't2');
+        $templateItem = GameyeSelector::selectTemplateItem($templateState, 't2');
         $this->assertEquals($templateItem->templateKey, 't2');
     }
-
-    //endregion
 }

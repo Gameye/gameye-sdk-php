@@ -24,140 +24,81 @@ final class GameyeHelper
         return \DateTime::createFromFormat('U', intval($epoch / 1000));
     }
 
+    //region deprecated
+
     /**
-     * Select a list of active matches.
-     *
-     * @param object $matchState
-     *
-     * @return object
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectMatchList(
         $matchState
     ) {
-        $matchState = (object) $matchState;
-
-        $matchList = [];
-        foreach ($matchState->match as $matchKey => $matchItem) {
-            $matchList[$matchKey] = $matchItem;
-        }
-
-        return $matchList;
+        return GameyeSelector::selectMatchList(
+            $matchState
+        );
     }
 
     /**
-     * Select a list of active matches for a game.
-     *
-     * @param object $matchState
-     * @param string $gameKey
-     *
-     * @return array
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectMatchListForGame(
         $matchState,
         $gameKey
     ) {
-        $matchState = (object) $matchState;
-        $gameKey = (string) $gameKey;
-
-        $matchList = [];
-        foreach ($matchState->match as $matchKey => $matchItem) {
-            if ($matchItem->gameKey != $gameKey) {
-                continue;
-            }
-
-            $matchList[$matchKey] = $matchItem;
-        }
-
-        return $matchList;
+        return GameyeSelector::selectMatchListForGame(
+            $matchState,
+            $gameKey
+        );
     }
 
     /**
-     * Get details about a single match from a match-state as returned by
-     * the gameye api.
-     *
-     * @param object $matchState
-     * @param string $matchKey
-     *
-     * @return object
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectMatchItem(
         $matchState,
         $matchKey
     ) {
-        $matchState = (object) $matchState;
-        $matchKey = (string) $matchKey;
-
-        $matchItem = $matchState->match->$matchKey;
-
-        return $matchItem;
+        return GameyeSelector::selectMatchItem(
+            $matchState,
+            $matchKey
+        );
     }
 
     /**
-     * Selects all locations for a given game.
-     *
-     * @param object $gameState
-     * @param string $gameKey
-     *
-     * @return array
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectLocationListForGame(
         $gameState,
         $gameKey
     ) {
-        $gameState = (object) $gameState;
-        $gameKey = (string) $gameKey;
-
-        $locationList = [];
-        foreach ($gameState->game->$gameKey->location as $locationKey => $hasLocation) {
-            if (!$hasLocation) {
-                continue;
-            }
-
-            $locationItem = $gameState->location->$locationKey;
-            $locationList[$locationKey] = $locationItem;
-        }
-
-        return $locationList;
+        return GameyeSelector::selectLocationListForGame(
+            $gameState,
+            $gameKey
+        );
     }
 
     /**
-     * Select a list of templates.
-     *
-     * @param object $templateState
-     *
-     * @return object
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectTemplateList(
         $templateState
     ) {
-        $templateState = (object) $templateState;
-
-        $templateList = [];
-        foreach ($templateState->template as $templateKey => $templateItem) {
-            $templateList[$templateKey] = $templateItem;
-        }
-
-        return $templateList;
+        return GameyeSelector::selectTemplateList(
+            $templateState
+        );
     }
 
     /**
-     * Get details about a single template from a template-state as returned by
-     * the gameye api.
-     *
-     * @param object $templateState
-     * @param string $templateKey
-     *
-     * @return object
+     * @deprecated Please use this function from the GameyeSelector class.
      */
     public static function selectTemplateItem(
         $templateState,
         $templateKey
     ) {
-        $templateState = (object) $templateState;
-        $templateKey = (string) $templateKey;
-
-        $templateItem = $templateState->template->$templateKey;
-
-        return $templateItem;
+        return GameyeSelector::selectTemplateItem(
+            $templateState,
+            $templateKey
+        );
     }
+
+    //endregion
 }
