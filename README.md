@@ -33,6 +33,10 @@ You may also git checkout or [download all the files](https://github.com/Gameye/
 
 ## Getting started ##
 
+To play around with the API, we recommend a REST client called Postman. Simply tap the button below to import a pre-made collection of examples.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5b09c19acdd27530e455)
+
 1. Use the Gameye SDK to create a match with your desired game-specific options. It's important to specify an unique ID in order to be able to retrieve the details when the match has been created.
 
 2. After the match has ended we will fire a GET request to your webhook to let you know the match is done.
