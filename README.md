@@ -1,5 +1,3 @@
-![Gameye](https://gameye.com/img/logo_blue.png)
-
 # Gameye SDK for PHP #
 
 [![Latest Stable Version](https://poser.pugx.org/Gameye/gameye-sdk-php/v/stable)](https://packagist.org/packages/gameye/gameye-sdk-php)
