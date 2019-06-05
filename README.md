@@ -60,7 +60,7 @@ $gameye->commandStartMatch([
         'maxRounds'   => 15,
         'tickRate'    => 128,
         'map'         => 'de_dust2',
-        'mapgroup     => 'mg_active',
+        'mapgroup'     => 'mg_active',
         'teamNameOne' => 'Counter Terrorists',
         'teamNameTwo' => 'Terrorists'
     ],
