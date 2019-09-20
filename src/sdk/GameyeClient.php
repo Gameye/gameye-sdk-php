@@ -72,13 +72,16 @@ class GameyeClient
      * @return object
      */
     public function queryStatistic(
-        $matchKey,
-        $statisticKey
+        $matchKey
     ) {
         $matchKey = (string) $matchKey;
-        $statisticKey = (string) $statisticKey;
 
-        $state = $this->query('statistic', [$matchKey, $statisticKey]);
+        $state = $this->query(
+            'statistic',
+            [
+                'matchKey' => $matchKey,
+            ]
+        );
 
         return $state;
     }
@@ -119,7 +122,12 @@ class GameyeClient
         $state,
         $args
     ) {
-        $url = sprintf('%s/fetch/%s/%s', $this->config['ApiEndpoint'], $state, implode('/', $args));
+        $query = http_build_query($args);
+        if (len($query) > 0) {
+            $query = "?" . $query;
+        }
+
+        $url = sprintf('%s/fetch/%s%s', $this->config['ApiEndpoint'], $state, $query);
 
         return $url;
     }
