@@ -156,7 +156,7 @@ class GameyeClient
         $args
     ) {
         $query = http_build_query($args);
-        if (len($query) > 0) {
+        if (strlen($query) > 0) {
             $query = "?" . $query;
         }
 
