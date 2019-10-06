@@ -31,10 +31,6 @@ You may also git checkout or [download all the files](https://github.com/Gameye/
 
 ## Getting started ##
 
-To play around with the API, we recommend a REST client called Postman. Simply tap the button below to import a pre-made collection of examples.
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5b09c19acdd27530e455)
-
 1. Use the Gameye SDK to create a match with your desired game-specific options. It's important to specify an unique ID in order to be able to retrieve the details when the match has been created.
 
 2. After the match has ended we will fire a GET request to your webhook to let you know the match is done.
@@ -53,7 +49,7 @@ Create a match.
 ```php
 $gameye->commandStartMatch([
     'matchKey'     => 'yourmatchid',
-    'locationKeys' => ['rotterdam', 'ireland'],
+    'locationKeys' => ['amsterdam'],
     'gameKey'      => 'csgo',
     'templateKey'  => 'esl1on1',
     'config'       => [
@@ -84,16 +80,6 @@ Remove the map parameter from the config array and add the following two paramet
 ],
 ```
 You can find the id of a custom map at the end of a [Steam Workshop URL](https://steamcommunity.com/workshop/browse/?appid=730).
-
-Get a list of all available games and locations we support.
-```php
-$gameye->queryGame();
-```
-
-Get a list of all available templates (configuration files) for a game.
-```php
-$gameye->queryTemplate($gameKey);
-```
 
 Get a detailed list of all your active matches.
 ```php
@@ -181,13 +167,6 @@ $steam->GameServersService->CreateAccountV1($appid, $memo);
 You can create a Steam Web API key on the [Steam website](https://steamcommunity.com/dev/apikey).
 
 The APP id that you should include for CS:GO is 730
-
-
-## Examples ##
-
-We have created an example implementation of this SDK based on the Laravel framework which implements all functions provided here, this should show you how to create a basic backend and how to create and manage matches via our API.
-
-+ [Example implementation in Laravel](https://github.com/Gameye/gameye-sdk-example-laravel).
 
 ## Contributing ##
 We encourage everyone to help us improve our public packages. If you want to contribute please submit a [pull request](https://github.com/Gameye/gameye-sdk-php/pulls).
