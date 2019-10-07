@@ -38,38 +38,6 @@ final class GameyeSelectorTest extends TestCase
 
     //endregion
 
-    //region location
-
-    public function testSelectLocationListForGame()
-    {
-        $gameState = GameyeMock::mockGame();
-        $locationList = GameyeSelector::selectLocationListForGame($gameState, 'test');
-        $this->assertEquals(count($locationList), 1);
-        $this->assertEquals($locationList['local']->locationKey, 'local');
-    }
-
-    //endregion
-
-    //region template
-
-    public function testSelectTemplateList()
-    {
-        $templateState = GameyeMock::mockTemplate();
-        $templateList = GameyeSelector::selectTemplateList($templateState);
-        $this->assertEquals(count($templateList), 2);
-        $this->assertEquals($templateList['t1']->templateKey, 't1');
-        $this->assertEquals($templateList['t2']->templateKey, 't2');
-    }
-
-    public function testSelectTemplateItem()
-    {
-        $templateState = GameyeMock::mockTemplate();
-        $templateItem = GameyeSelector::selectTemplateItem($templateState, 't2');
-        $this->assertEquals($templateItem->templateKey, 't2');
-    }
-
-    //endregion
-
     //region team
 
     public function testSelectTeamList()
